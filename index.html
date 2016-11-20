@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="movieCompare">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title page-title></title>
+
+    <link href="assets/css/main.css" rel="stylesheet">
+</head>
+<body ng-controller="MainController" id="top_page">
+
+<!-- Main view  -->
+<div class="container">
+    <div ui-view id="ui-view"></div>
+</div>
+
+<!-- Main Angular scripts-->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+<script src="bower_components/ng-lodash/build/ng-lodash.min.js"></script>
+
+<!-- Angular App Script -->
+<script src="components/app.js"></script>
+<script src="components/config.js"></script>
+<script src="components/directives.js"></script>
+
+<script src="components/main/mainService.js"></script>
+<script src="components/main/mainController.js"></script>
+
+<!-- Angular Common Script -->
+<script src="common/localstorage/localstorageModule.js"></script>
+
+</body>
+</html>
