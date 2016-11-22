@@ -5,8 +5,8 @@ function config($stateProvider, $urlRouterProvider){
     $stateProvider
         .state('main', {
             url: '/',
-            templateUrl: 'components/main/mainView.html',
-            controller: 'MainController',
+            templateUrl: 'components/search/searchView.html',
+            controller: 'SearchController',
             data: {pageTitle: 'Home'}
         })
 }

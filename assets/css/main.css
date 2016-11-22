@@ -7,3 +7,37 @@ body,
   width: 960px;
   margin: auto;
 }
+.container ul {
+  list-style: none;
+}
+.container .search .search-poster {
+  width: 40px;
+  height: 55px;
+  margin: 5px 10px 5px 0;
+  background-color: #fff;
+  border-radius: 4px;
+}
+.container .search .search-year {
+  font-size: 75%;
+  font-style: italic;
+}
+.container .glyphicon-refresh-animate {
+  -animation: spin .7s infinite linear;
+  -webkit-animation: spin2 .7s infinite linear;
+}
+@-webkit-keyframes spin2 {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}

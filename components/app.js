@@ -8,7 +8,8 @@ var app = angular.module('movieCompare', [
 ]);
 var appControllers = angular.module('movieCompare.controllers', [
     'ui.router',
-    'ngSanitize'
+    'ngSanitize',
+    'ui.select'
 ]);
 var appServices = angular.module('movieCompare.services', [
     'ngResource',
