@@ -25,16 +25,27 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-block btn-primary btn-md" ng-disabled="movies.firstMovie.selected == null || movies.secondMovie.selected == null"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" ng-show="loading"></span>&nbsp;Compare</button>
-
+        <button type="submit" class="btn btn-block btn-primary btn-md" ng-disabled="(movies.firstMovie.selected == null || movies.secondMovie.selected == null) || disabledBtn"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" ng-show="loading"></span>&nbsp;Compare</button>
     </form>
 
-    <div class="panel panel-default" ng-repeat="(key, value) in theSameCrew track by $index">
-        <div class="panel-heading">{{key}}</div>
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="item in value">{{item}}</li>
-        </ul>
+    <div class="result">
+        <h3 ng-if="theSameCrew">Result:</h3>
+        <div class="panel panel-default" ng-repeat="(key, value) in theSameCrew track by $index">
+            <div class="panel-heading">{{key}}</div>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="item in value">{{item}}</li>
+            </ul>
+        </div>
+
+        <div class="alert alert-info" ng-if="theSameCrew | isEmpty">Unfortunately for the given film does not have a common crew</div>
     </div>
 
-    <div class="alert alert-info" ng-if="theSameCrew | isEmpty">Unfortunately for the given film does not have a common crew</div>
+    <div class="history" ng-if="savedHistory">
+        <h3>Recently Searched:</h3>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="item in savedHistory">
+                <div ng-repeat="title in item.title"><span>{{title}}</span></div>
+            </li>
+        </ul>
+    </div>
 </section>

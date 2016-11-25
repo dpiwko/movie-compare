@@ -2,6 +2,7 @@
  * Created by Dawid on 2016-11-20.
  */
 appControllers.controller('SearchController', ['$rootScope', '$scope', '$http', '$timeout', 'Search', 'localStorageService', function($rootScope, $scope, $http, $timeout, Search, localStorageService){
+    var count = 0;
     $scope.movies = {};
 
     $scope.searchMovie = function(title, type){
@@ -21,6 +22,7 @@ appControllers.controller('SearchController', ['$rootScope', '$scope', '$http', 
     $scope.getMovie = function(title, type){
         Search.getMovie({t: title}).$promise.then(function(result){
             $scope.movies[type].selected = result;
+            $scope.disabledBtn = false;
         }).catch(function(error){
             console.log(error);
         });
@@ -36,6 +38,7 @@ appControllers.controller('SearchController', ['$rootScope', '$scope', '$http', 
                 Actors: $scope.movies.secondMovie.selected.Actors.split(', '),
                 Director: $scope.movies.secondMovie.selected.Director.split(', ')
             },
+            comparedMovies = {},
             index;
 
         $scope.theSameCrew = {};
@@ -51,6 +54,24 @@ appControllers.controller('SearchController', ['$rootScope', '$scope', '$http', 
 
         $timeout(function(){
             $scope.loading = false;
+            $scope.disabledBtn = true;
         });
+
+        comparedMovies = {
+            title: [$scope.movies.firstMovie.selected.Title, $scope.movies.secondMovie.selected.Title]
+        };
+        setHistory('movieHistory', comparedMovies);
+        $scope.savedHistory = getHistory('movieHistory');
+    };
+
+    function getHistory(name){
+        return localStorageService.get(name);
+    }
+    $scope.savedHistory = getHistory('movieHistory');
+
+    function setHistory(name, object){
+        var history = getHistory(name) || [];
+        history.push(object);
+        localStorageService.set(name, history);
     }
 }]);
