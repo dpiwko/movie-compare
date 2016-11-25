@@ -1,7 +1,7 @@
 /**
  * Created by Dawid on 2016-11-20.
  */
-appControllers.controller('SearchController', ['$rootScope', '$scope', '$http', '$timeout', 'Search', 'lodash', function($rootScope, $scope, $http, $timeout, Search, lodash){
+appControllers.controller('SearchController', ['$rootScope', '$scope', '$http', '$timeout', 'Search', 'localStorageService', function($rootScope, $scope, $http, $timeout, Search, localStorageService){
     $scope.movies = {};
 
     $scope.searchMovie = function(title, type){
@@ -28,8 +28,29 @@ appControllers.controller('SearchController', ['$rootScope', '$scope', '$http', 
 
     $scope.compareMovie = function(){
         $scope.loading = true;
+        var firstCrew = {
+                Actors: $scope.movies.firstMovie.selected.Actors.split(', '),
+                Director: $scope.movies.firstMovie.selected.Director.split(', ')
+            },
+            secondCrew = {
+                Actors: $scope.movies.secondMovie.selected.Actors.split(', '),
+                Director: $scope.movies.secondMovie.selected.Director.split(', ')
+            },
+            index;
+
+        $scope.theSameCrew = {};
+        Object.keys(firstCrew).map(function(objKey){
+            firstCrew[objKey].map(function(obj){
+                index = secondCrew[objKey].findIndex(function(o){ return o == obj; });
+                if(index !== -1){
+                    $scope.theSameCrew[objKey] = $scope.theSameCrew[objKey] || [];
+                    $scope.theSameCrew[objKey].push(secondCrew[objKey][index]);
+                }
+            });
+        });
+
         $timeout(function(){
             $scope.loading = false;
-        }, 5000);
+        });
     }
 }]);

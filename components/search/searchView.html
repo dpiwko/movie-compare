@@ -8,7 +8,8 @@
                 <ui-select ng-model="form.firstMovie" theme="bootstrap" class="search" ng-change="getMovie($select.selected.Title, 'firstMovie')">
                     <ui-select-match allow-clear="false" placeholder="Enter an first movie...">{{$select.selected.Title}}</ui-select-match>
                     <ui-select-choices repeat="movie in movies.firstMovie | filter: {Type: 'movie'} track by $index" refresh="searchMovie($select.search, 'firstMovie')" refresh-delay="600">
-                        <div ng-bind-html-if-safe="'<img src=' + movie.Poster + ' class=search-poster>' + movie.Title + ' <span class=search-year>(' + movie.Year + ')</span>' | highlight: $select.search"></div>
+                        <div ng-bind-html-if-safe="'<img src=' + movie.Poster + ' class=search-poster>' + movie.Title + ' <span class=search-year>(' + movie.Year + ')</span>' | highlight: $select.search" ng-if="movie.Poster !== 'N/A'"></div>
+                        <div ng-bind-html-if-safe="'<img src=assets/img/no-poster.png class=search-poster>' + movie.Title + ' <span class=search-year>(' + movie.Year + ')</span>' | highlight: $select.search" ng-if="movie.Poster === 'N/A'"></div>
                     </ui-select-choices>
                 </ui-select>
             </div>
@@ -17,14 +18,23 @@
                 <ui-select ng-model="form.secondMovie" theme="bootstrap" class="search" ng-change="getMovie($select.selected.Title, 'secondMovie')">
                     <ui-select-match allow-clear="false" placeholder="Enter an second movie...">{{$select.selected.Title}}</ui-select-match>
                     <ui-select-choices repeat="movie in movies.secondMovie | filter: {Type: 'movie'} track by $index" refresh="searchMovie($select.search, 'secondMovie')" refresh-delay="600">
-                        <div ng-bind-html-if-safe="'<img src=' + movie.Poster + ' class=search-poster>' + movie.Title + ' <span class=search-year>(' + movie.Year + ')</span>' | highlight: $select.search"></div>
+                        <div ng-bind-html-if-safe="'<img src=' + movie.Poster + ' class=search-poster>' + movie.Title + ' <span class=search-year>(' + movie.Year + ')</span>' | highlight: $select.search" ng-if="movie.Poster !== 'N/A'"></div>
+                        <div ng-bind-html-if-safe="'<img src=assets/img/no-poster.png class=search-poster>' + movie.Title + ' <span class=search-year>(' + movie.Year + ')</span>' | highlight: $select.search" ng-if="movie.Poster === 'N/A'"></div>
                     </ui-select-choices>
                 </ui-select>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-block btn-primary btn-md" ng-disabled="movies.firstMovie.selected == null && movies.secondMovie.selected == null"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" ng-show="loading"></span>&nbsp;Compare</button>
+        <button type="submit" class="btn btn-block btn-primary btn-md" ng-disabled="movies.firstMovie.selected == null || movies.secondMovie.selected == null"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" ng-show="loading"></span>&nbsp;Compare</button>
 
     </form>
 
+    <div class="panel panel-default" ng-repeat="(key, value) in theSameCrew track by $index">
+        <div class="panel-heading">{{key}}</div>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="item in value">{{item}}</li>
+        </ul>
+    </div>
+
+    <div class="alert alert-info" ng-if="theSameCrew | isEmpty">Unfortunately for the given film does not have a common crew</div>
 </section>

@@ -12,8 +12,7 @@ var appControllers = angular.module('movieCompare.controllers', [
     'ui.select'
 ]);
 var appServices = angular.module('movieCompare.services', [
-    'ngResource',
-    'ngLodash'
+    'ngResource'
 ]);
 var appDirectives = angular.module('movieCompare.directives', [
     'ui.router',

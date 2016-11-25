@@ -11,3 +11,9 @@ appServices.factory('Search', ['$resource', function($resource){
         });
     return Search;
 }]);
+
+appServices.filter('isEmpty', [function(){
+    return function(object) {
+        return angular.equals({}, object);
+    }
+}]);
