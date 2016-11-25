@@ -58,7 +58,8 @@ appControllers.controller('SearchController', ['$rootScope', '$scope', '$http', 
         });
 
         comparedMovies = {
-            title: [$scope.movies.firstMovie.selected.Title, $scope.movies.secondMovie.selected.Title]
+            title: [$scope.movies.firstMovie.selected.Title, $scope.movies.secondMovie.selected.Title],
+            date: new Date().toLocaleString()
         };
         setHistory('movieHistory', comparedMovies);
         $scope.savedHistory = getHistory('movieHistory');
